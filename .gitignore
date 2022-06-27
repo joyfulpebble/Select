@@ -1,0 +1,8 @@
+#Ignore folder
+/node_modules
+/.cache
+/dist
+
+# Ignore artifacts:
+build
+coverage
