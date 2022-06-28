@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+body{ font-family: 'Poppins', sans-serif; }
+
+.container{
+  padding-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+.wrap{
+  width: 400px;
+}
+
+$input-height: 37px;
+$border: solid 1px #26262690;
+$border-radius: 3px;
+
+.select{
+  width: 100%;
+  position: relative;
+
+  &.active{
+    .select__dropdown{
+      display: block;
+    }
+    .select__input{
+      border-bottom: none;
+    }
+  }
+
+  &__input{
+    height: $input-height;
+    border: $border;
+    border-radius: $border-radius;
+    padding: 0 9px 0 9px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: text;
+  }
+  &__dropdown{
+    display: none;
+    position: absolute;
+    border: $border;
+    border-radius: $border-radius;
+    top: $input-height + 3;
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0 9px 0 9px;
+  }
+  &__list{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__item{
+    padding: 1rem;
+
+    &:hover{
+      border-bottom: $border;
+      cursor: pointer;
+    }
+  }
+
+}
