@@ -35,7 +35,7 @@ $border-radius: 3px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    cursor: text;
+    cursor: pointer;
   }
   &__dropdown{
     display: none;
@@ -56,10 +56,10 @@ $border-radius: 3px;
   }
 
   &__item{
-    padding: 1rem;
-
+    padding: 3px 5px;
+    
     &:hover{
-      border-bottom: $border;
+      text-decoration: underline;
       cursor: pointer;
     }
   }

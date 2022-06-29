@@ -6,8 +6,7 @@ declare global {
 }
 
 const select = new Select('select', {
-  angle: 'angle' 
-
+  
 });
 
 window.select = select;
