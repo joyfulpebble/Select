@@ -57,6 +57,7 @@ $border-radius: 3px;
 
   &__item{
     padding: 3px 5px;
+    border-bottom: $border;
     
     &:hover{
       text-decoration: underline;

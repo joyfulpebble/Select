@@ -1,33 +1,53 @@
 declare global {
-  // interface options{
-    
-  // }
+  interface items{
+    id: number,
+    text: string
+  }
+
+  interface options{
+    placeholder: string,
+    data: Array< items >
+  }
 }
 
-const template = `
+const template = (place: string, data: Array< items >): string => {
+  const placeholder = place ?? '';
+  const elements = data.map(el => {
+      return `<li class="select__item" data-type="item"> ${el.text} </li>`
+  });
+  
+  const result = `
   <div class="select__input" data-type="input">
-    <span class="input__text"> </span>
+    <span class="input__text"> ${placeholder} </span>
     <i class="fa-solid fa-angle-down" data-type="angle"></i>
   </div>
   <div class="select__dropdown">
-    <ul class="select__list"> 
-      <li class="select__item" data-type="item"> text </li>
+    <ul class="select__list">
+     ${
+      elements.join('')      
+     }
     </ul>
   </div>
 `
+  return result;
+} 
 
 export class Select {
   $selector: any;
   $angle: any;
+  options: options;
 
-  constructor(selector: string, options: object){
+  constructor(selector: string, options: options){
     this.$selector = document.getElementById(selector);
+    this.options = options;
 
     this.render();
     this.setup();
   }
   private render(){
-    this.$selector.innerHTML = template;
+    const {placeholder, data} = this.options;
+
+    this.$selector.innerHTML = template(placeholder, data);
   }
   private setup(){
     this.clickLogger = this.clickLogger.bind(this)
