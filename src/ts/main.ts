@@ -13,12 +13,12 @@ declare global {
 const template = (place: string, data: Array< items >): string => {
   const placeholder = place ?? '';
   const elements = data.map(el => {
-      return `<li class="select__item" data-type="item"> ${el.text} </li>`
+      return `<li class="select__item" data-type="item" data-value="${el.id}"> ${el.text} </li>`
   });
   
   const result = `
   <div class="select__input" data-type="input">
-    <span class="input__text"> ${placeholder} </span>
+    <span class="input__text" data-type="header"> ${placeholder} </span>
     <i class="fa-solid fa-angle-down" data-type="angle"></i>
   </div>
   <div class="select__dropdown">
@@ -35,11 +35,14 @@ const template = (place: string, data: Array< items >): string => {
 export class Select {
   $selector: any;
   $angle: any;
+  $header: any;
   options: options;
+  selectedItemId: number | null;
 
   constructor(selector: string, options: options){
     this.$selector = document.getElementById(selector);
     this.options = options;
+    this.selectedItemId = null;
 
     this.render();
     this.setup();
@@ -52,7 +55,8 @@ export class Select {
   private setup(){
     this.clickLogger = this.clickLogger.bind(this)
     this.$selector.addEventListener('click', this.clickLogger);
-    this.$angle = this.$selector.querySelector('[data-type="angle"]')
+    this.$angle = this.$selector.querySelector('[data-type="angle"]');
+    this.$header = this.$selector.querySelector('[data-type="header"]');
   }
 
   clickLogger(event: any){
@@ -60,6 +64,10 @@ export class Select {
     
     if (type === 'input') {
       this.toggle();
+    } else if (type === 'item') {
+      const id = event.target.dataset.value;
+      
+      this.selectItem(id)
     }
     
   }
@@ -70,6 +78,16 @@ export class Select {
     } else {
       this.open();
     }
+  }
+  current(id: number){
+    return this.options.data[id - 1].text
+  }  
+
+  selectItem(id: number){
+    this.selectedItemId = id;
+
+    this.$header.textContent = this.current(this.selectedItemId);
+    this.close();
   }
 
   open(){
