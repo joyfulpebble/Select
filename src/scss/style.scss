@@ -59,6 +59,11 @@ $border-radius: 3px;
     padding: 3px 5px;
     border-bottom: $border;
     
+    &.selected{
+      color: crimson;
+      text-decoration: underline;
+    }
+
     &:hover{
       text-decoration: underline;
       cursor: pointer;

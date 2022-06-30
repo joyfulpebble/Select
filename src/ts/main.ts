@@ -80,13 +80,19 @@ export class Select {
     }
   }
   current(id: number){
-    return this.options.data[id - 1].text
+    return this.options.data[id - 1].text;
   }  
 
   selectItem(id: number){
     this.selectedItemId = id;
 
     this.$header.textContent = this.current(this.selectedItemId);
+
+    this.$selector.querySelectorAll('[data-type="item"]').forEach((el: { classList: { remove: (arg0: string) => void; }; }) => {
+      el.classList.remove('selected');
+    });{} 
+    this.$selector.querySelector(`[data-value="${id}"]`).classList.add('selected');
+
     this.close();
   }
 
